@@ -8,12 +8,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.METHOD })
+@Target({ ElementType.METHOD, ElementType.FIELD })
 public @interface SQL {
-    @UtextAnnotate("连接配置")
-    DriverClassName Driver();
+    @UtextAnnotate("使用其他已经配置的sql别名")
+    String sqlName() default "";
 
-    @UtextAnnotate("方法别名,未配置则默认使用类全限定名加方法名")
+    @UtextAnnotate("别名,未配置则默认使用类全限定名加方法名")
     String name() default "";
 
     @UtextAnnotate("数据库用户名（用于连接数据库）")
@@ -29,7 +29,10 @@ public @interface SQL {
     int port() default 3306;
 
     @UtextAnnotate("数据库名称")
-    String databaseName();
+    String databaseName() default "";
+
+    @UtextAnnotate("连接配置")
+    DriverClassName Driver() default DriverClassName.MySql8;
 
     @UtextAnnotate("编码")
     String characterEncoding() default "UTF-8";
