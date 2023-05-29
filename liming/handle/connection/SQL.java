@@ -7,6 +7,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+@UtextAnnotate("若注解在方法上，尽可能避免使用 ... 方法传入可变参数，以免不必要的错误")
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD, ElementType.FIELD })
 public @interface SQL {
@@ -60,4 +61,13 @@ public @interface SQL {
 
     @UtextAnnotate("socket操作（读写）超时，单位：毫秒。 0表示永不超时")
     long socketTimeout() default 0;
+
+    @UtextAnnotate("设置时区")
+    String serverTimezone() default "UTC";
+
+    @UtextAnnotate("当使用JDBC连接其他数据库时所用的URL")
+    String otherUrl() default "";
+
+    @UtextAnnotate("当使用JDBC连接其他数据库时所用的驱动程序")
+    String otherDriver() default "";
 }
